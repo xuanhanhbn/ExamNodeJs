@@ -1,6 +1,7 @@
 const express = require("express");
 // connect mongodb
 const database = require("./src/database");
+const Student = require("./src/models/student");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -42,5 +43,37 @@ app.get("/create-student",(req,res)=>{
 })
 app.post("/create-student",(req,res)=>{
     let s = req.body;
-    res.send(s);
+    const Student = require("./src/models/student");
+    let newStudent = new Student(s);
+    newStudent.save().then(rs=>{
+        res.redirect("/students");
+    }).catch(err=>{
+        res.send(err);
+    })
 });
+app.get("/edit-student/:id",(req,res)=>{
+    let id = req.params.id;
+    let Student = require("./src/models/student");
+    Student.findById(id).then(rs=>{
+       res.render("student/edit",{
+           data: rs
+       });
+    }).catch(err=>{
+        res.send(err);
+    })
+})
+app.post("/edit-student/:id",(req,res)=>{
+    let id = req.params.id;
+    let data = req.body;
+    let Student = require("./src/models/student");
+    Student.findByIdAndUpdate(id,data)
+        .then(rs=>res.redirect("/students"))
+        .catch(err=>res.send(err));
+})
+app.post("/delete-student/:id",(req,res)=>{
+    let id = req.params.id;
+    let Student = require("./src/models/student");
+    Student.findByIdAndDelete(id)
+        .then(rs=>res.redirect("/students"))
+        .catch(err=>res.send(err));
+})
