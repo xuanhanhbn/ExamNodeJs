@@ -9,6 +9,9 @@ app.listen(PORT,()=>{
     console.log("Server is running...");
 })
 app.set("view engine","ejs");
+app.use(express.static("public"));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.get("/",function (req,res){
     let student = {
@@ -25,5 +28,19 @@ app.get("/",function (req,res){
    });
 });
 app.get("/students",function (req,res){
-    res.send("Hello everybody");
+    const Student = require("./src/models/student");
+    Student.find({}).then(rs=>{
+        res.render("student/list",{
+            items: rs
+        });
+    }).catch(err=>{
+        res.send(err);
+    });
+});
+app.get("/create-student",(req,res)=>{
+    res.render("student/form");
+})
+app.post("/create-student",(req,res)=>{
+    let s = req.body;
+    res.send(s);
 });
