@@ -1,5 +1,5 @@
-const server = "mongodb+srv://root:root123@cluster0.hfbob.azure.mongodb.net";
-const database = "T2203E";
+const server = process.env.MONGODB_URI;
+const database = process.env.DB_NAME;
 let mongoose = require("mongoose");
 
 class Database{

@@ -49,7 +49,7 @@
 <section>
     <div class="container">
         <h1>Students</h1>
-        <a href="/create-student" class="float-end btn btn-outline-primary">Create a new student</a>
+        <a href="/students/create-student" class="float-end btn btn-outline-primary">Create a new student</a>
         <table class="table">
             <thead>
             <tr>
@@ -69,8 +69,8 @@
                     <td><%= item.email %></td>
                     <td><%= item.age %></td>
                     <td><%= item.tel %></td>
-                    <td><a href="/edit-student/<%= item._id %>">Edit</a>
-                        <form action="/delete-student/<%= item._id%>" method="post">
+                    <td><a href="/students/edit-student/<%= item._id %>">Edit</a>
+                        <form action="/students/delete-student/<%= item._id%>" method="post">
                             <button onclick="return confirm('Bạn chắc chắn muốn xóa <%= item.name %>?')" type="submit" class="btn btn-outline-danger">Delete</button>
                         </form>
                     </td>
