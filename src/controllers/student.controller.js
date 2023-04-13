@@ -1,11 +1,13 @@
 const Student = require("../models/student");
+const permission = "student";
 exports.get = async function(req,res){
     try{
+        const auth = req.session.auth;
         const ls1 = await Student.find({});
-        const ls2 = await Student.find({name:"Nam"});
-        res.send({
-            list1: ls1,
-            list2: ls2
+       // const ls2 = await Student.find({name:"Nam"});
+        res.render("student/list",{
+            items: ls1,
+            auth: auth
         });
     }catch(err){
         res.send(err);

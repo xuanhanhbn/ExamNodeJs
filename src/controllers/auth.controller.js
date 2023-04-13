@@ -26,5 +26,11 @@ exports.loginUser = async (req,res)=>{
     if(!existUser) return res.status(401).send("Email or password is not correct");
     const checkPassword = await bcrypt.compare(req.body.password,existUser.password);
     if(!checkPassword) return res.status(401).send("Email or password is not correct");
-    res.send(`User ${existUser.name} has logged in`);
+    req.session.auth = {
+        _id: existUser._id,
+        name: existUser.name,
+        email: existUser.email,
+        permissions: ["student","classroom","subject"]
+    }
+    res.redirect("/students");
 }
