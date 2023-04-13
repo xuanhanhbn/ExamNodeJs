@@ -18,3 +18,13 @@ exports.create = async (req,res)=>{
     });
     user.save().then(rs=>res.send("done")).catch(err=>res.send(err));
 }
+exports.login =  (req,res)=>{
+    res.render("auth/login");
+}
+exports.loginUser = async (req,res)=>{
+    let existUser = await User.findOne({email: req.body.email});
+    if(!existUser) return res.status(401).send("Email or password is not correct");
+    const checkPassword = await bcrypt.compare(req.body.password,existUser.password);
+    if(!checkPassword) return res.status(401).send("Email or password is not correct");
+    res.send(`User ${existUser.name} has logged in`);
+}
