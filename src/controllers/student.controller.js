@@ -1,12 +1,16 @@
 const Student = require("../models/student");
-exports.get = function(req,res){
-    Student.find({}).then(rs=>{
-        res.render("student/list",{
-            items: rs
+exports.get = async function(req,res){
+    try{
+        const ls1 = await Student.find({});
+        const ls2 = await Student.find({name:"Nam"});
+        res.send({
+            list1: ls1,
+            list2: ls2
         });
-    }).catch(err=>{
+    }catch(err){
         res.send(err);
-    });
+    }
+
 }
 exports.createForm = (req,res)=>{
     res.render("student/form");

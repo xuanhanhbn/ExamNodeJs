@@ -16,6 +16,9 @@ app.use(express.urlencoded({extended:true}));
 
 const studentRouter = require("./src/routes/student.route");
 app.use("/students",studentRouter);
+const authRouter = require("./src/routes/auth.route");
+app.use("/auth",authRouter);
+
 
 app.get("/",function (req,res){
     let student = {
