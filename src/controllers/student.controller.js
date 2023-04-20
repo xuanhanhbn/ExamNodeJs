@@ -1,5 +1,4 @@
 const Student = require("../models/student");
-const permission = "student";
 exports.get = async function(req,res){
     try{
         const auth = req.session.auth;

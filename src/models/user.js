@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength:6,
         maxLength:255
-    }
+    },
+    permissions: Array
 });
 module.exports = mongoose.model("User",userSchema);
