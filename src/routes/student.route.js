@@ -1,6 +1,17 @@
 const permission = "student";
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+    destination: function (req,file,cb) {
+        cb(null,'public/uploads/student')
+    },
+    filename: function(req,file,cb) {
+        cb(null,Date.now()+"-"+file.originalname)
+    }
+})
+const upload = multer({storage:storage})
 const express = require("express");
-let router = express.Router();
+let router = express.Router(); 
 let studentController = require("../controllers/student.controller");
 const middleware = require("./../middlewares/student.middleware");
 router.use(middleware.can_view);

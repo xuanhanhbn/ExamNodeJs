@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
         minLength:6,
         maxLength:255
     },
+    avatar: String,
     permissions: Array
 });
 module.exports = mongoose.model("User",userSchema);
